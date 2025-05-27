@@ -1,15 +1,10 @@
 package com.qzb.ai.mcp.server;
 
-import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
-import org.springframework.ai.tool.ToolCallbacks;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.List;
 
 @SpringBootApplication
 public class McpServerDemoApplication {
@@ -18,28 +13,35 @@ public class McpServerDemoApplication {
         SpringApplication.run(McpServerDemoApplication.class, args);
     }
 
-    @Bean
-    public List<ToolCallback> cityCallback(CityServer cityServer) {
-        return List.of(ToolCallbacks.from(cityServer));
-    }
+//    @Bean
+//    public List<ToolCallback> cityCallback(CityServer cityServer) {
+//        return List.of(ToolCallbacks.from(cityServer));
+//    }
 
 //    @Bean
-//    public ToolCallbackProvider weatherTools(CityServer cityServer) {
+//    public ToolCallbackProvider cityTools(CityServer cityServer) {
 //        return MethodToolCallbackProvider.builder()
 //                .toolObjects(cityServer)
 //                .build();
 //    }
 
+//    @Bean
+//    public ToolCallbackProvider toolCallbackProvider(OpenMeteoService openMeteoService, CityServer cityServer) {
+//        return MethodToolCallbackProvider.builder()
+//                .toolObjects(cityServer, openMeteoService)
+//                .build();
+//    }
+
     @Bean
-    public ToolCallbackProvider weatherTools(OpenMeteoService openMeteoService) {
+    public ToolCallbackProvider toolCallbackProvider(CommandService commandService) {
         return MethodToolCallbackProvider.builder()
-                .toolObjects(openMeteoService)
+                .toolObjects(commandService)
                 .build();
     }
 
-    @Bean
-    public WebClient.Builder webClientBuilder() {
-        return WebClient.builder();
-    }
+//    @Bean
+//    public WebClient.Builder webClientBuilder() {
+//        return WebClient.builder();
+//    }
 
 }
